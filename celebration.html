@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yay! | For You</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="celebration-body">
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confetti"></div>
+
+  <!-- Main Content -->
+  <main class="celebration-page">
+    <div class="celebration-content">
+      <div class="celebration-emoji reveal-up">
+        <img src="rizz.gif" alt="celebration">
+      </div>
+
+      <h1 class="celebration-title reveal-up delay-1">
+        <span class="line"><span class="word">Yay!</span></span>
+      </h1>
+
+      <p class="celebration-text reveal-up delay-2">
+        I knew you'd say yes!<br>
+        Can't wait for our date ♡
+      </p>
+
+      <div class="date-summary reveal-up delay-3">
+        <p class="summary-label">Our Perfect Date:</p>
+        <p class="summary-text" id="dateSummary">Loading your choices...</p>
+      </div>
+
+      <a href="index.html" class="btn-restart reveal-up delay-4">
+        <span>Start Over</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts celebration-hearts">
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+    <span class="heart">♡</span>
+  </div>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow celebration-glow"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Create confetti on load
+    document.addEventListener('DOMContentLoaded', () => {
+      createConfetti();
+      displayDateSummary();
+    });
+
+    function createConfetti() {
+      const container = document.getElementById('confetti');
+      const colors = ['#e8a4b8', '#ff6b9d', '#fff', '#ffd700', '#ff69b4'];
+
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        container.appendChild(confetti);
+      }
+    }
+
+    function displayDateSummary() {
+      // Get selections from localStorage
+      const food = localStorage.getItem('selectedFood') || 'Something delicious';
+      const dessert = localStorage.getItem('selectedDessert') || 'Something sweet';
+      const activity = localStorage.getItem('selectedActivity') || 'Something fun';
+
+      const summaryEl = document.getElementById('dateSummary');
+      summaryEl.innerHTML = `${food} + ${dessert} + ${activity}`;
+    }
+  </script>
+</body>
+</html>
