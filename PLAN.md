@@ -22,7 +22,7 @@ Envelope → Hello → Reasons → Question → Celebration → Surprise → Fin
 | 3 | Reasons | ✅ Done | "I like you because..." animated list |
 | 4 | Question | ✅ Done | "Will you be my Valentine?" |
 | 5 | Celebration | ✅ Done | "YAYYYY!" with confetti |
-| 6 | Surprise | ❌ TODO | Suspense → reveal (date plan/gift) |
+| 6 | Surprise | ✅ Done | Suspense → reveal (date plan/gift) |
 | 7 | Final Letter | ❌ TODO | Personal message + photos |
 
 ---
@@ -141,7 +141,7 @@ Signature name: _______________
 - [x] Growing Yes button
 - [x] Confetti celebration
 - [x] Animated list items (slide in)
-- [ ] Suspense loading animation
+- [x] Suspense loading animation
 - [ ] Photo gallery with polaroid frames
 - [ ] Different GIF per page
 

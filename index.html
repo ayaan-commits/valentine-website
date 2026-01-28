@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <!-- Page 4: Celebration -->
+    <!-- Page 5: Celebration -->
     <div class="page" id="page-celebration">
         <div class="glass-card celebration">
             <div class="gif-container">
@@ -78,9 +78,33 @@
             </div>
             <h1 class="celebration-title">YAYYYY!</h1>
             <p class="celebration-text">I knew you'd say yes!</p>
-            <p class="celebration-subtext">Can't wait for our date</p>
-            <div class="final-heart">
-                <span class="big-heart">❤️</span>
+            <p class="celebration-subtext">But wait... I have a surprise!</p>
+            <button class="btn primary-btn" id="celebration-continue">What is it?</button>
+        </div>
+    </div>
+
+    <!-- Page 6: Surprise -->
+    <div class="page" id="page-surprise">
+        <div class="glass-card">
+            <!-- Suspense (shown first) -->
+            <div class="suspense-container" id="suspense-container">
+                <h2 class="suspense-title">I have something special planned...</h2>
+                <div class="loading-hearts">
+                    <span>💕</span>
+                    <span>💕</span>
+                    <span>💕</span>
+                </div>
+            </div>
+
+            <!-- Reveal (shown after suspense) -->
+            <div class="reveal-container" id="reveal-container" style="display: none;">
+                <div class="gif-container">
+                    <img src="cat.gif" alt="Excited" class="cute-gif large">
+                </div>
+                <h2 class="reveal-subtitle">Get ready for...</h2>
+                <h1 class="reveal-title">OUR DATE!</h1>
+                <p class="reveal-details">February 14th, 2025</p>
+                <button class="btn yes-btn" id="surprise-yes">I can't wait!</button>
             </div>
         </div>
     </div>

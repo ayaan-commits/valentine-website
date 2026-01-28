@@ -273,9 +273,49 @@ function initQuestionPage() {
 }
 
 // ============================================
+// CELEBRATION PAGE - CONTINUE TO SURPRISE
+// ============================================
+function initCelebrationPage() {
+    const continueBtn = document.getElementById('celebration-continue');
+
+    continueBtn.addEventListener('click', () => {
+        showPage('page-surprise');
+        initSurprisePage();
+    });
+}
+
+// ============================================
+// SURPRISE PAGE - SUSPENSE & REVEAL
+// ============================================
+function initSurprisePage() {
+    const suspenseContainer = document.getElementById('suspense-container');
+    const revealContainer = document.getElementById('reveal-container');
+    const surpriseYes = document.getElementById('surprise-yes');
+
+    // Show suspense first, then reveal after 3 seconds
+    setTimeout(() => {
+        suspenseContainer.style.display = 'none';
+        revealContainer.style.display = 'block';
+
+        // Fire confetti on reveal
+        fireConfetti();
+        fireHeartConfetti();
+    }, 3000);
+
+    // Yes button - can link to final letter page later
+    surpriseYes.addEventListener('click', () => {
+        fireConfetti();
+        fireHeartConfetti();
+        // TODO: Go to final letter page when it's ready
+        alert('More coming soon! 💕');
+    });
+}
+
+// ============================================
 // INITIALIZE
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingHearts();
+    initCelebrationPage();
     initEnvelopePage();
 });
