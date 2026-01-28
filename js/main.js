@@ -1,235 +1,237 @@
-// ==========================================
-// Valentine Website - Main JavaScript
-// ==========================================
+// ============================================
+// FLOATING HEARTS BACKGROUND
+// ============================================
+function createFloatingHearts() {
+    const container = document.getElementById('hearts-bg');
+    const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘', '💞', '🩷'];
 
-document.addEventListener('DOMContentLoaded', () => {
-  initCustomCursor();
-  initRevealAnimations();
-  initNoButtonEscape();
-  initSelectionSaving();
-});
+    setInterval(() => {
+        const heart = document.createElement('span');
+        heart.className = 'floating-heart-bg';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+        heart.style.fontSize = (18 + Math.random() * 25) + 'px';
+        container.appendChild(heart);
 
-// ==========================================
-// Custom Cursor
-// ==========================================
-function initCustomCursor() {
-  const cursor = document.querySelector('.cursor');
-  const follower = document.querySelector('.cursor-follower');
-
-  if (!cursor || !follower) return;
-
-  // Check if it's a touch device
-  if ('ontouchstart' in window) {
-    cursor.style.display = 'none';
-    follower.style.display = 'none';
-    return;
-  }
-
-  let mouseX = 0, mouseY = 0;
-  let cursorX = 0, cursorY = 0;
-  let followerX = 0, followerY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  // Smooth cursor animation
-  function animateCursor() {
-    // Main cursor follows immediately
-    cursorX += (mouseX - cursorX) * 0.5;
-    cursorY += (mouseY - cursorY) * 0.5;
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
-
-    // Follower has more delay
-    followerX += (mouseX - followerX) * 0.15;
-    followerY += (mouseY - followerY) * 0.15;
-    follower.style.left = followerX + 'px';
-    follower.style.top = followerY + 'px';
-
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  // Cursor hover effects
-  const hoverElements = document.querySelectorAll('a, button, .selection-item, input');
-  hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('cursor-hover');
-      follower.classList.add('cursor-hover');
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('cursor-hover');
-      follower.classList.remove('cursor-hover');
-    });
-  });
+        setTimeout(() => heart.remove(), 12000);
+    }, 400);
 }
 
-// ==========================================
-// Reveal Animations on Scroll/Load
-// ==========================================
-function initRevealAnimations() {
-  const reveals = document.querySelectorAll('.reveal-up, .reveal-text');
+// ============================================
+// CONFETTI
+// ============================================
+function fireConfetti() {
+    const duration = 3000;
+    const end = Date.now() + duration;
+    const colors = ['#ff6b9d', '#ff8fab', '#ffc2d1', '#ff4d6d', '#ffd700', '#ff69b4'];
 
-  // Initial reveal for elements in view
-  reveals.forEach((el, index) => {
-    setTimeout(() => {
-      el.classList.add('revealed');
-    }, index * 100);
-  });
+    (function frame() {
+        confetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
 
-  // Scroll-based reveals
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  reveals.forEach(el => observer.observe(el));
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
 }
 
-// ==========================================
-// No Button Escape Logic
-// ==========================================
-function initNoButtonEscape() {
-  const noBtn = document.getElementById('noBtn');
-  if (!noBtn) return;
+function fireHeartConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        shapes: ['circle'],
+        colors: ['#ff6b9d', '#ff8fab', '#ff4d6d', '#ff1493']
+    });
+}
 
-  let attempts = 0;
-  const maxAttempts = 12;
-  const messages = [
-    'No',
-    'Are you sure?',
-    'Really sure?',
-    'Think again!',
-    'Please?',
-    'Pretty please?',
-    'With a cherry on top?',
-    'Come on!',
-    'Don\'t do this...',
-    'I\'m begging you!',
-    'Last chance!',
-    '...'
-  ];
+// ============================================
+// TYPEWRITER EFFECT
+// ============================================
+function typeWriter(element, text, speed = 80, callback) {
+    let i = 0;
+    element.textContent = '';
 
-  const yesBtn = document.querySelector('.btn-yes');
-
-  noBtn.addEventListener('mouseenter', () => {
-    if (attempts >= maxAttempts) return;
-
-    attempts++;
-
-    // Update button text
-    noBtn.querySelector('span').textContent = messages[Math.min(attempts, messages.length - 1)];
-
-    // Make Yes button grow
-    if (yesBtn) {
-      const scale = 1 + (attempts * 0.1);
-      yesBtn.style.transform = `scale(${Math.min(scale, 2)})`;
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        } else {
+            if (callback) callback();
+        }
     }
+    type();
+}
 
-    // Move No button to random position
-    const moveNoButton = () => {
-      const rect = noBtn.getBoundingClientRect();
-      const parentRect = noBtn.parentElement.getBoundingClientRect();
+// ============================================
+// PAGE NAVIGATION
+// ============================================
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+}
 
-      const maxX = window.innerWidth - rect.width - 40;
-      const maxY = window.innerHeight - rect.height - 40;
+// ============================================
+// ENVELOPE PAGE
+// ============================================
+function initEnvelopePage() {
+    const envelope = document.getElementById('envelope');
+    const envelopeContainer = document.querySelector('.envelope-container');
 
-      let newX = Math.random() * maxX;
-      let newY = Math.random() * maxY;
+    envelopeContainer.addEventListener('click', () => {
+        envelope.classList.add('open');
 
-      // Keep button within reasonable bounds
-      newX = Math.max(40, Math.min(newX, maxX));
-      newY = Math.max(100, Math.min(newY, maxY));
-
-      noBtn.style.position = 'fixed';
-      noBtn.style.left = newX + 'px';
-      noBtn.style.top = newY + 'px';
-    };
-
-    // Shake first, then move
-    noBtn.classList.add('shake');
-    setTimeout(() => {
-      noBtn.classList.remove('shake');
-      moveNoButton();
-    }, 300);
-
-    // After max attempts, make button disappear
-    if (attempts >= maxAttempts) {
-      setTimeout(() => {
-        noBtn.style.opacity = '0';
-        noBtn.style.pointerEvents = 'none';
         setTimeout(() => {
-          noBtn.style.display = 'none';
+            showPage('page-hello');
+            initHelloPage();
+        }, 1500);
+    });
+}
+
+// ============================================
+// HELLO PAGE - TYPEWRITER
+// ============================================
+function initHelloPage() {
+    const helloText = document.getElementById('hello-text');
+    const subtitle = document.getElementById('hello-subtitle');
+    const continueBtn = document.getElementById('hello-continue');
+
+    typeWriter(helloText, "Hey You...", 100, () => {
+        setTimeout(() => {
+            subtitle.style.opacity = '1';
+            setTimeout(() => {
+                continueBtn.style.opacity = '1';
+            }, 500);
         }, 500);
-      }, 500);
-    }
-  });
+    });
 
-  // Also handle click (for mobile)
-  noBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    noBtn.dispatchEvent(new Event('mouseenter'));
-  });
+    continueBtn.addEventListener('click', () => {
+        showPage('page-question');
+        initQuestionPage();
+    });
 }
 
-// ==========================================
-// Save Selections to LocalStorage
-// ==========================================
-function initSelectionSaving() {
-  // Food page
-  const foodCheckboxes = document.querySelectorAll('input[name="food"]');
-  foodCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      const selected = Array.from(foodCheckboxes)
-        .filter(c => c.checked)
-        .map(c => c.value.charAt(0).toUpperCase() + c.value.slice(1))
-        .join(' & ');
-      localStorage.setItem('selectedFood', selected || 'Food');
-    });
-  });
+// ============================================
+// QUESTION PAGE - RUNAWAY BUTTON
+// ============================================
+function initQuestionPage() {
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const counter = document.getElementById('no-counter');
 
-  // Dessert page
-  const dessertCheckboxes = document.querySelectorAll('input[name="dessert"]');
-  dessertCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      const selected = Array.from(dessertCheckboxes)
-        .filter(c => c.checked)
-        .map(c => c.value.charAt(0).toUpperCase() + c.value.slice(1))
-        .join(' & ');
-      localStorage.setItem('selectedDessert', selected || 'Dessert');
-    });
-  });
+    let escapeCount = 0;
+    const maxEscapes = 10;
 
-  // Activities page
-  const activityCheckboxes = document.querySelectorAll('input[name="activity"]');
-  activityCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      const selected = Array.from(activityCheckboxes)
-        .filter(c => c.checked)
-        .map(c => c.value.charAt(0).toUpperCase() + c.value.slice(1))
-        .join(' & ');
-      localStorage.setItem('selectedActivity', selected || 'Activities');
+    const noTexts = [
+        "No",
+        "Are you sure?",
+        "Really sure?",
+        "Think again!",
+        "Please?",
+        "Pretty please?",
+        "Don't do this...",
+        "I'm begging!",
+        "Last chance!",
+        "Fine... 😢"
+    ];
+
+    const yesTexts = [
+        "Yes!",
+        "YES!",
+        "YESSS!",
+        "SAY YES!",
+        "CLICK ME!",
+        "PLEASE!",
+        "YESYESYES!"
+    ];
+
+    function moveNoButton() {
+        escapeCount++;
+
+        // Update texts
+        noBtn.textContent = noTexts[Math.min(escapeCount, noTexts.length - 1)];
+        yesBtn.textContent = yesTexts[Math.min(escapeCount, yesTexts.length - 1)];
+
+        // Grow yes button
+        const scale = 1 + (escapeCount * 0.12);
+        yesBtn.style.transform = `scale(${Math.min(scale, 2)})`;
+
+        // Move no button to random position
+        const padding = 80;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        const randomX = padding + Math.random() * (maxX - padding);
+        const randomY = padding + Math.random() * (maxY - padding);
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+        noBtn.style.zIndex = '9999';
+
+        // Update counter
+        counter.textContent = `No button escaped ${escapeCount} times! 🤣`;
+
+        // Shake animation
+        noBtn.classList.add('shake');
+        setTimeout(() => noBtn.classList.remove('shake'), 400);
+
+        // After max escapes, shrink and disable
+        if (escapeCount >= maxEscapes) {
+            noBtn.style.transform = 'scale(0.3)';
+            noBtn.style.opacity = '0.4';
+            noBtn.textContent = '😢';
+            noBtn.style.pointerEvents = 'none';
+            counter.textContent = `The No button gave up! 😂`;
+        }
+    }
+
+    // No button events
+    noBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        moveNoButton();
     });
-  });
+
+    noBtn.addEventListener('mouseenter', () => {
+        if (escapeCount < maxEscapes) {
+            moveNoButton();
+        }
+    });
+
+    // Yes button click
+    yesBtn.addEventListener('click', () => {
+        fireConfetti();
+        fireHeartConfetti();
+
+        setTimeout(() => fireConfetti(), 500);
+        setTimeout(() => fireHeartConfetti(), 1000);
+
+        setTimeout(() => {
+            showPage('page-celebration');
+        }, 800);
+    });
 }
 
-// ==========================================
-// Smooth Page Transitions
-// ==========================================
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href && href.endsWith('.html')) {
-      e.preventDefault();
-      document.body.classList.add('page-exit');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 300);
-    }
-  });
+// ============================================
+// INITIALIZE
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    createFloatingHearts();
+    initEnvelopePage();
 });

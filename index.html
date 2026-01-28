@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For You</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Custom Cursor -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" id="hearts-bg"></div>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <span class="nav-logo">♡</span>
-    <span class="nav-text">a little something for you</span>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="hero">
-    <div class="hero-content">
-      <h1 class="reveal-text">
-        <span class="line"><span class="word">Hey</span></span>
-        <span class="line"><span class="word">You.</span></span>
-      </h1>
-      <p class="subtitle reveal-up">I have something to ask...</p>
-
-      <div class="gif-container reveal-up delay-1">
-        <img src="cat.gif" alt="cute cat">
-      </div>
-
-      <a href="food.html" class="btn-continue reveal-up delay-2">
-        <span>Let's start</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+    <!-- Page 1: Envelope -->
+    <div class="page active" id="page-envelope">
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="letter">
+                        <p>You have a message...</p>
+                    </div>
+                </div>
+            </div>
+            <p class="tap-text">Tap to open</p>
+        </div>
     </div>
-  </main>
 
-  <!-- Ambient Glow -->
-  <div class="ambient-glow"></div>
+    <!-- Page 2: Hello Message -->
+    <div class="page" id="page-hello">
+        <div class="glass-card">
+            <div class="gif-container">
+                <img src="cat.gif" alt="Cute" class="cute-gif">
+            </div>
+            <div class="typewriter-container">
+                <h1 class="typewriter" id="hello-text"></h1>
+            </div>
+            <p class="subtitle" id="hello-subtitle" style="opacity: 0;">I have something to ask you...</p>
+            <button class="btn primary-btn" id="hello-continue" style="opacity: 0;">Continue</button>
+        </div>
+    </div>
 
-  <script src="js/main.js"></script>
+    <!-- Page 3: The Question -->
+    <div class="page" id="page-question">
+        <div class="glass-card">
+            <div class="gif-container">
+                <img src="cat.gif" alt="Please" class="cute-gif large">
+            </div>
+            <h1 class="question-text">Will you be my Valentine?</h1>
+            <div class="buttons-container">
+                <button class="btn yes-btn" id="yes-btn">Yes!</button>
+                <button class="btn no-btn" id="no-btn">No</button>
+            </div>
+            <p class="no-counter" id="no-counter"></p>
+        </div>
+    </div>
+
+    <!-- Page 4: Celebration -->
+    <div class="page" id="page-celebration">
+        <div class="glass-card celebration">
+            <div class="gif-container">
+                <img src="rizz.gif" alt="Happy" class="cute-gif large">
+            </div>
+            <h1 class="celebration-title">YAYYYY!</h1>
+            <p class="celebration-text">I knew you'd say yes!</p>
+            <p class="celebration-subtext">Can't wait for our date</p>
+            <div class="final-heart">
+                <span class="big-heart">❤️</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
