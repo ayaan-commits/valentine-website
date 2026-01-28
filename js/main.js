@@ -122,6 +122,50 @@ function initHelloPage() {
     });
 
     continueBtn.addEventListener('click', () => {
+        showPage('page-reasons');
+        initReasonsPage();
+    });
+}
+
+// ============================================
+// REASONS PAGE - ANIMATED LIST
+// ============================================
+function initReasonsPage() {
+    const reasonsList = document.getElementById('reasons-list');
+    const continueBtn = document.getElementById('reasons-continue');
+
+    // CUSTOMIZE THESE REASONS
+    const reasons = [
+        "💕 Your smile makes my day better",
+        "🌟 You're always there when I need you",
+        "😊 You make me laugh like no one else",
+        "💖 You understand me without words",
+        "✨ Every moment with you is special"
+    ];
+
+    // Clear previous reasons
+    reasonsList.innerHTML = '';
+
+    let delay = 0;
+    reasons.forEach((reason, index) => {
+        setTimeout(() => {
+            const item = document.createElement('div');
+            item.className = 'reason-item';
+            item.textContent = reason;
+            item.style.animationDelay = '0s';
+            reasonsList.appendChild(item);
+
+            // Show continue button after last reason
+            if (index === reasons.length - 1) {
+                setTimeout(() => {
+                    continueBtn.style.opacity = '1';
+                }, 500);
+            }
+        }, delay);
+        delay += 800; // 800ms between each reason
+    });
+
+    continueBtn.addEventListener('click', () => {
         showPage('page-question');
         initQuestionPage();
     });

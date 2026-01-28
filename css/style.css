@@ -317,6 +317,42 @@ body {
 }
 
 /* ========================================
+   REASONS PAGE
+   ======================================== */
+.section-title {
+    font-family: 'Caveat', cursive;
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.reasons-list {
+    text-align: left;
+    margin: 20px 0;
+    min-height: 150px;
+}
+
+.reason-item {
+    background: rgba(255,255,255,0.2);
+    padding: 12px 20px;
+    border-radius: 15px;
+    margin: 10px 0;
+    color: white;
+    font-size: 16px;
+    transform: translateX(-50px);
+    opacity: 0;
+    animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ========================================
    QUESTION TEXT
    ======================================== */
 .question-text {
