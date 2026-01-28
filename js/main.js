@@ -302,12 +302,46 @@ function initSurprisePage() {
         fireHeartConfetti();
     }, 3000);
 
-    // Yes button - can link to final letter page later
+    // Yes button - go to final letter
     surpriseYes.addEventListener('click', () => {
         fireConfetti();
         fireHeartConfetti();
-        // TODO: Go to final letter page when it's ready
-        alert('More coming soon! 💕');
+        setTimeout(() => {
+            showPage('page-final');
+            initFinalPage();
+        }, 800);
+    });
+}
+
+// ============================================
+// FINAL LETTER PAGE - TYPEWRITER MESSAGE
+// ============================================
+function initFinalPage() {
+    const finalMessage = document.getElementById('final-message');
+
+    // CUSTOMIZE THIS MESSAGE
+    const message = `Hey there, my special someone...
+
+I just wanted to tell you how much you mean to me.
+
+Every day with you feels like a gift.
+Your laugh, your smile, the way you look at me...
+It all makes my heart skip a beat.
+
+I know I'm not perfect, but with you,
+I want to be the best version of myself.
+
+Thank you for being you.
+Thank you for choosing me.
+
+I can't wait to make more memories together.
+
+I love you more than words can say... 💕`;
+
+    // Type out the message
+    typeWriter(finalMessage, message, 30, () => {
+        // Fire hearts when done
+        setTimeout(() => fireHeartConfetti(), 500);
     });
 }
 

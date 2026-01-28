@@ -23,7 +23,7 @@ Envelope → Hello → Reasons → Question → Celebration → Surprise → Fin
 | 4 | Question | ✅ Done | "Will you be my Valentine?" |
 | 5 | Celebration | ✅ Done | "YAYYYY!" with confetti |
 | 6 | Surprise | ✅ Done | Suspense → reveal (date plan/gift) |
-| 7 | Final Letter | ❌ TODO | Personal message + photos |
+| 7 | Final Letter | ✅ Done | Personal message + photos |
 
 ---
 
@@ -142,7 +142,7 @@ Signature name: _______________
 - [x] Confetti celebration
 - [x] Animated list items (slide in)
 - [x] Suspense loading animation
-- [ ] Photo gallery with polaroid frames
+- [x] Photo gallery with polaroid frames
 - [ ] Different GIF per page
 
 ---
